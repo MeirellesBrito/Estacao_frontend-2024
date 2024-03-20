@@ -1,13 +1,9 @@
-/*
-   
-*/
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CurrentTime from "./CurrentTime";
 import InputField from "./InputField";
 import SubmitButton from "./SubmitButton";
 
-function Peifericos() {
+function Perifericos() {
   const [pluviometria, setPluviometria] = useState("");
   const [pressao, setPressao] = useState("");
   const [temperatura, setTemperatura] = useState("");
@@ -16,41 +12,31 @@ function Peifericos() {
   const [velocidade, setVelocidade] = useState("");
   const [horaAtual, setHoraAtual] = useState("");
 
+  const geradorDePontos = useCallback(() => {
+    const direcoes = ["N", "L", "S", "O", "NE", "NO", "SE", "SO"];
+    const randomIndex = Math.floor(Math.random() * direcoes.length);
+    const randomDirecao = direcoes[randomIndex];
+    return randomDirecao;
+  }, []);
+
   const enviarDados = async () => {
     const dados = {
+      pluviometria,
       pressao,
       temperatura,
       umidade,
       direcao,
-      velocidade
+      velocidade,
     };
-    // const dados = {
-    //   pressao: {
-    //     valor: 1000, // Exemplo de valor para a pressão
-    //     unidade: "hPa" // Exemplo de unidade para a pressão
-    //   },
-    //   temperatura: {
-    //     valor: 25, // Exemplo de valor para a temperatura
-    //     unidade: "°C" // Exemplo de unidade para a temperatura
-    //   },
-    //   umidade: {
-    //     valor: 60, // Exemplo de valor para a umidade
-    //     unidade: "%" // Exemplo de unidade para a umidade
-    //   },
-    //   direcao: "Norte", // Exemplo de valor para a direção
-    //   velocidade: 20 // Exemplo de valor para a velocidade
-    // };
-    
-  
 
-    // Enviar dados para a API via método POST
+    // Envio de dados para a API via método POST
     try {
-      const response = await fetch('http://192.168.0.107:3001/Sensor', {
+      const response = await fetch(`${process.env.REACT_APP_HOST_API}/Sensor`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(dados)
+        body: JSON.stringify(dados),
       });
       if (response.ok) {
         console.log("Dados enviados com sucesso!");
@@ -60,19 +46,18 @@ function Peifericos() {
     } catch (error) {
       console.error("Erro ao enviar os dados:", error.message);
     }
-  
-    // Exibir os dados no console em formato JSON
-    console.log(dados)
+
+    // Exibição dos dados no console em formato JSON
+    console.log(dados);
     console.log("Dados enviados:", JSON.stringify(dados));
   };
-  
 
-  const gerarDadosAleatorios = () => {
+  const gerarDadosAleatorios = useCallback(() => {
     const randomPluviometria = Math.floor(Math.random() * 100);
     const randomPressao = Math.floor(Math.random() * 100);
     const randomTemperatura = Math.floor(Math.random() * 100);
     const randomUmidade = Math.floor(Math.random() * 100);
-    const randomDirecao = Math.floor(Math.random() * 100);
+    const randomDirecao = geradorDePontos(); // Geração de direção aleatória
     const randomVelocidade = Math.floor(Math.random() * 100);
 
     setPluviometria(randomPluviometria);
@@ -81,7 +66,7 @@ function Peifericos() {
     setUmidade(randomUmidade);
     setDirecao(randomDirecao);
     setVelocidade(randomVelocidade);
-  };
+  }, [geradorDePontos]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -90,77 +75,78 @@ function Peifericos() {
       gerarDadosAleatorios();
     }, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, [gerarDadosAleatorios]);
 
   useEffect(() => {
     const randomDataInterval = setInterval(() => {
       gerarDadosAleatorios();
     }, 10000);
     return () => clearInterval(randomDataInterval);
-  }, []);
+  }, [gerarDadosAleatorios]);
 
   return (
-    <div>
+    <div className="funto">
       <CurrentTime currentTime={horaAtual} />
       <div className="input-container"></div>
       <table className="border-separate p-2  w-full border-spacing-2 border border-slate-500 ...">
         <thead>
           <tr>
-            <th className=" border border-slate-600 ...">Pluviometria</th>
-            <th className="border border-slate-600 ...">
+            <th className="fundoBranco p-2 border border-slate-600 ...">Pluviometria</th>
+            <th className="fundoBranco p-2 border border-slate-600 ...">
               <InputField
                 label="Pluviometria"
-                value={pluviometria}
+                value={`${pluviometria}mm`}
                 onChange={(e) => setPluviometria(e.target.value)}
               />
             </th>
           </tr>
           <tr>
-            <th className="border border-slate-700 ...">Pressão Atmosférica</th>
-            <th className="border border-slate-700 ...">
+            <th className="fundoBranco border border-slate-700 ...">Pressão Atmosférica</th>
+            <th className="fundoBranco p-2 border border-slate-700 ...">
               <InputField
                 label="Pressão Atmosférica"
-                value={pressao}
+                value={`${pressao}hPa`}
                 onChange={(e) => setPressao(e.target.value)}
               />
             </th>
           </tr>
           <tr>
-            <th className="border border-slate-700 ...">Temperatura</th>
-            <th className="border border-slate-700 ...">
+            <th className="fundoBranco border border-slate-700 ...">Temperatura </th>
+            <th className="fundoBranco p-2 border border-slate-700 ...">
               <InputField
                 label="Temperatura"
-                value={temperatura}
+                value={`${temperatura}°C`}
                 onChange={(e) => setTemperatura(e.target.value)}
               />
             </th>
           </tr>
           <tr>
-            <th className="border border-slate-700 ...">Umidade do Ar</th>
-            <th className="border border-slate-700 ...">
+            <th className="fundoBranco border border-slate-700 ...">Umidade do Ar</th>
+            <th className="fundoBranco p-2 border border-slate-700 ...">
               <InputField
                 label="Umidade do Ar"
-                value={umidade}
+                value={`${umidade}%`}
                 onChange={(e) => setUmidade(e.target.value)}
               />
             </th>
           </tr>
           <tr>
-            <th className="border border-slate-700 ...">Direção do Vento</th>
-            <th className="border border-slate-700 ...">
+            <th className="fundoBranco border border-slate-700 ...">Direção do Vento</th>
+            <th className="fundoBranco p-2 border border-slate-700 ...">
               <InputField
                 label="Direção do Vento"
-                value={direcao}
+                value={`${direcao} `}
                 onChange={(e) => setDirecao(e.target.value)}
               />
             </th>
           </tr>
           <tr>
-            <th className="border border-slate-700 ...">Velocidade do Vento</th>
-            <th className="border border-slate-700 ...">
+            <th className="fundoBranco border border-slate-700 ...">Velocidade do Vento</th>
+            {/* Valor referente à rota cardias */}
+            <th className="fundoBranco p-2 border border-slate-700 ...">
               <InputField
                 label="Velocidade do Vento"
-                value={velocidade}
+                value={`${velocidade}m/s`}
                 onChange={(e) => setVelocidade(e.target.value)}
               />
             </th>
@@ -172,4 +158,4 @@ function Peifericos() {
   );
 }
 
-export default Peifericos;
+export default Perifericos;

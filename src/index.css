@@ -2,13 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.funto{
+  background-color: rgba(15, 14, 14, 0.087);
+  border-radius: 20px;
+  width: 100%;
+  padding: 10px;
+}
 
+.fundoBranco{
+  background-color:rgb(255, 255, 255);
+}
 
 body {
   font-family: Arial, sans-serif;
   font-size: 25px;
-  background-image: url('https://www.agsolve.com.br/imgprodutos/imagens/1006_2.jpg');
-  background-size: cover;
+  /* background-image: url('https://www.agsolve.com.br/imgprodutos/imagens/1006_2.jpg'); */
+  background-image: url(../public/HomeNoPeriferico.jpg);
+  background-size:cover;
+  background-repeat: no-repeat;
   background-position: center;
   height: 100vh;
   display: flex;
