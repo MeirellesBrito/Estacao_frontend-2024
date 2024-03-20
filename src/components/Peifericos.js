@@ -8,7 +8,7 @@ function Peifericos() {
   const [pressao, setPressao] = useState("");
   const [temperatura, setTemperatura] = useState("");
   const [umidade, setUmidade] = useState("");
-  const [direcao, setDirecao] = useState("");
+  const [direcao, sethirecao] = useState("");
   const [velocidade, setVelocidade] = useState("");
   const [horaAtual, setHoraAtual] = useState("");
 
@@ -20,7 +20,7 @@ function Peifericos() {
     console.log("Umidade do Ar:", umidade);
     console.log("Direção do Vento:", direcao);
     console.log("Velocidade do Vento:", velocidade);
-    // alert("Dados enviados com sucesso!");
+    alert("Dados enviados com sucesso!");
   };
 
   const gerarDadosAleatorios = () => {
@@ -35,7 +35,7 @@ function Peifericos() {
     setPressao(randomPressao);
     setTemperatura(randomTemperatura);
     setUmidade(randomUmidade);
-    setDirecao(randomDirecao);
+    sethirecao(randomDirecao);
     setVelocidade(randomVelocidade);
   };
 
@@ -71,59 +71,57 @@ function Peifericos() {
               />
             </th>
           </tr>
-        </thead>
-        <tbody>
           <tr>
-            <td className="border border-slate-700 ...">Pressão Atmosférica</td>
-            <td className="border border-slate-700 ...">
+            <th className="border border-slate-700 ...">Pressão Atmosférica</th>
+            <th className="border border-slate-700 ...">
               <InputField
                 label="Pressão Atmosférica"
                 value={pressao}
                 onChange={(e) => setPressao(e.target.value)}
               />
-            </td>
+            </th>
           </tr>
           <tr>
-            <td className="border border-slate-700 ...">Temperatura</td>
-            <td className="border border-slate-700 ...">
+            <th className="border border-slate-700 ...">Temperatura</th>
+            <th className="border border-slate-700 ...">
               <InputField
                 label="Temperatura"
                 value={temperatura}
                 onChange={(e) => setTemperatura(e.target.value)}
               />
-            </td>
+            </th>
           </tr>
           <tr>
-            <td className="border border-slate-700 ...">Umidade do Ar</td>
-            <td className="border border-slate-700 ...">
+            <th className="border border-slate-700 ...">Umidade do Ar</th>
+            <th className="border border-slate-700 ...">
               <InputField
                 label="Umidade do Ar"
                 value={umidade}
                 onChange={(e) => setUmidade(e.target.value)}
               />
-            </td>
+            </th>
           </tr>
           <tr>
-            <td className="border border-slate-700 ...">Direção do Vento</td>
-            <td className="border border-slate-700 ...">
+            <th className="border border-slate-700 ...">Direção do Vento</th>
+            <th className="border border-slate-700 ...">
               <InputField
                 label="Direção do Vento"
                 value={direcao}
-                onChange={(e) => setDirecao(e.target.value)}
+                onChange={(e) => sethirecao(e.target.value)}
               />
-            </td>
+            </th>
           </tr>
           <tr>
-            <td className="border border-slate-700 ...">Velocidade do Vento</td>
-            <td className="border border-slate-700 ...">
+            <th className="border border-slate-700 ...">Velocidade do Vento</th>
+            <th className="border border-slate-700 ...">
               <InputField
                 label="Velocidade do Vento"
                 value={velocidade}
                 onChange={(e) => setVelocidade(e.target.value)}
               />
-            </td>
+            </th>
           </tr>
-        </tbody>
+        </thead>
       </table>
       <SubmitButton onClick={enviarDados} />
     </div>
