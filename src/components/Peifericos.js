@@ -38,7 +38,7 @@ function Peifericos() {
     setDirecao(randomDirecao);
     setVelocidade(randomVelocidade);
   };
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       const currentTime = new Date().toLocaleTimeString();
@@ -56,28 +56,75 @@ function Peifericos() {
   }, []);
 
   return (
-    <div
-      className="App"
-      style={{
-        backgroundImage: `url('https://www.agsolve.com.br/imgprodutos/imagens/1006_2.jpg')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
+    <div>
       <CurrentTime currentTime={horaAtual} />
-      <div className="input-container">
-        <InputField label="Pubviometria" value={pubviometria} onChange={(e) => setPubviometria(e.target.value)} />
-        <InputField label="Pressão Atmosférica" value={pressao} onChange={(e) => setPressao(e.target.value)} />
-        <InputField label="Temperatura" value={temperatura} onChange={(e) => setTemperatura(e.target.value)} />
-        <InputField label="Umidade do Ar" value={umidade} onChange={(e) => setUmidade(e.target.value)} />
-        <InputField label="Direção do Vento" value={direcao} onChange={(e) => setDirecao(e.target.value)} />
-        <InputField label="Velocidade do Vento" value={velocidade} onChange={(e) => setVelocidade(e.target.value)} />
-      </div>
+      <div className="input-container"></div>
+      <table className="border-separate border-spacing-2 border border-slate-500 ...">
+        <thead>
+          <tr>
+            <th className="border border-slate-600 ...">Pubviometria</th>
+            <th className="border border-slate-600 ...">
+              <InputField
+                label="Pubviometria"
+                value={pubviometria}
+                onChange={(e) => setPubviometria(e.target.value)}
+              />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="border border-slate-700 ...">Pressão Atmosférica</td>
+            <td className="border border-slate-700 ...">
+              <InputField
+                label="Pressão Atmosférica"
+                value={pressao}
+                onChange={(e) => setPressao(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-slate-700 ...">Temperatura</td>
+            <td className="border border-slate-700 ...">
+              <InputField
+                label="Temperatura"
+                value={temperatura}
+                onChange={(e) => setTemperatura(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-slate-700 ...">Umidade do Ar</td>
+            <td className="border border-slate-700 ...">
+              <InputField
+                label="Umidade do Ar"
+                value={umidade}
+                onChange={(e) => setUmidade(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-slate-700 ...">Direção do Vento</td>
+            <td className="border border-slate-700 ...">
+              <InputField
+                label="Direção do Vento"
+                value={direcao}
+                onChange={(e) => setDirecao(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td className="border border-slate-700 ...">Velocidade do Vento</td>
+            <td className="border border-slate-700 ...">
+              <InputField
+                label="Velocidade do Vento"
+                value={velocidade}
+                onChange={(e) => setVelocidade(e.target.value)}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <SubmitButton onClick={enviarDados} />
     </div>
   );
